@@ -137,7 +137,7 @@ export default {
           </div>
 
           <div>
-            <PieChart></PieChart>
+            <PieChart></PieChart> <!-- Puts pie chart into the homepage-->
           </div>
         </div>
       </div>

@@ -1,9 +1,8 @@
-export const PieChartData = {
-    type: "pie",
+const data = { //hard-coded data as placeholder
     labels: [
-      'Red',
-      'Blue',
-      'Yellow'
+      '77007',
+      '77008',
+      '77009'
     ],
     datasets: [{
       label: 'My First Dataset',
@@ -17,4 +16,9 @@ export const PieChartData = {
     }]
   };
 
-export default PieChartData;
+const PieChartData = { //configures the Pie Chart, https://www.chartjs.org/docs/latest/charts/doughnut.html#pie
+    type:'pie',
+    data: data,
+}
+
+export default PieChartData; //alows chart to be used elsewhere

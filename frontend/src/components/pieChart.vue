@@ -1,6 +1,6 @@
-<template>
+<template> <!--gathered from lecture, -->
     <div>
-        <canvas id="PieChart"></canvas>
+        <canvas id="PieChart"></canvas> <!--empty canvas to place chart into-->
     </div>
 </template>
 
@@ -8,15 +8,15 @@
   import {Chart, registerables} from 'chart.js'
   import PieChartData from '../assets/pieChartData'
 
-  Chart.register(...registerables);
+  Chart.register(...registerables); 
   export default {
-    data(){
+    data(){ //Gathers data from pieChartData.js file at the moment
         return {
             PieChartData: PieChartData
         }
     },
-    mounted(){
-        const ctx = document.getElementById('PieChart')
+    mounted(){ //mounts chart
+        const ctx = document.getElementById('PieChart') //into the canvas at the top
         new Chart (ctx, this.PieChartData)
     }
   }
