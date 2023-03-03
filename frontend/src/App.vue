@@ -26,6 +26,16 @@ export default {
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
             <li>
+              <router-link to="/login">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >people</span
+                >
+                Log In
+              </router-link>
+            </li>
+            <li>
               <router-link to="/">
                 <span
                   style="position: relative; top: 6px"
@@ -43,6 +53,16 @@ export default {
                   >people</span
                 >
                 Client Intake Form
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/service">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >add</span
+                >
+                Add Service
               </router-link>
             </li>
             <li>
