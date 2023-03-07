@@ -279,6 +279,7 @@ export default {
               />
             </label>
           </div>
+          
         </div>
 
         <!-- grid container -->
