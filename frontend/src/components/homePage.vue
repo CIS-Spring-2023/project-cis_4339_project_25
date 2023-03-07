@@ -2,13 +2,11 @@
 import { DateTime } from 'luxon'
 import axios from 'axios'
 import AttendanceChart from './barChart.vue'
-import PieChart from '@/components/pieChart.vue'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   components: {
-    AttendanceChart,
-    PieChart
+    AttendanceChart
   },
   data() {
     return {
@@ -20,8 +18,7 @@ export default {
     }
   },
   mounted() {
-    this.getAttendanceData(),
-    PieChart
+    this.getAttendanceData()
   },
   methods: {
     async getAttendanceData() {
@@ -134,10 +131,6 @@ export default {
               </p>
             </div>
             <!-- End of error alert -->
-          </div>
-
-          <div>
-            <PieChart></PieChart>
           </div>
         </div>
       </div>
