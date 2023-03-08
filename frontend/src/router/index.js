@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // make all paths and names lowercase for consistency
-const routes = [
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes : [
   {
     path: '/',
     props: true,
     component: () => import('../components/homePage.vue')
   },
   {
-    path: '/login/',
+    path: '/login',
     name: 'login',
     component: () => import('../components/login.vue')
   },
@@ -62,8 +64,5 @@ const routes = [
     component: () => import('../components/serviceDetails.vue')
   }
 ]
-const router = createRouter({
-  history: createWebHistory(),
-  routes
 })
 export default router
