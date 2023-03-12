@@ -137,7 +137,7 @@ export default {
           </div>
 
           <div>
-            <PieChart></PieChart> //places Pie chart into the dashboard
+            <PieChart></PieChart> <!-- Place Pie Chart into dashboard-->
           </div>
         </div>
       </div>
