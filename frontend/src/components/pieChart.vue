@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="PieChart"></canvas>
+        <canvas id="PieChart"></canvas> <!-- Place to put pie chart into-->
     </div>
 </template>
 
@@ -10,12 +10,12 @@
 
   Chart.register(...registerables);
   export default {
-    data(){
+    data(){ //Temporary hard coded data to be used
         return {
             PieChartData: PieChartData
         }
     },
-    mounted(){
+    mounted(){ //mounts chart on canvas
         const ctx = document.getElementById('PieChart')
         new Chart (ctx, this.PieChartData)
     }
