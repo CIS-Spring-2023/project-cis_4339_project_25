@@ -1,12 +1,12 @@
-export const PieChartData = {
+export const PieChartData = { //temporary chart data
     type: "pie",
     labels: [
-      'Red',
-      'Blue',
-      'Yellow'
+      '77028',
+      '77009',
+      '77056'
     ],
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Customers by zip code',
       data: [300, 50, 100],
       backgroundColor: [
         'rgb(255, 99, 132)',
