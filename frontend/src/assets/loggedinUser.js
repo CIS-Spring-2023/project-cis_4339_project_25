@@ -29,7 +29,8 @@ export const useLoggedInUserStore = defineStore({
       this.patch({
         name: "",
         isLoggedIn: false
-      });
+      })
+      this.$router.push("/");
 
       // we could do other stuff like redirecting the user
     }

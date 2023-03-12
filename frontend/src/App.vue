@@ -31,7 +31,7 @@ export default {
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
             <li>
-              <router-link to="/login">
+              <router-link to="/login" v-if="!user.isLoggedIn">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -39,6 +39,25 @@ export default {
                 >
                 Log In
               </router-link>
+            </li> <!-- If use is logged in will bring the user information instead and option to log out-->
+            <li class="nav-item dropdown" v-if="user.isLoggedIn">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarUserMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-fill" style="font-size: 1rem; color: hsla(160, 100%, 37%, 1)"></i> Welcome, {{ user.name }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
+              <li class="nav-item">
+                <a href="">
+                  <span @click="store.logout()" class="nav-link"><i class="bi bi-box-arrow-left"></i> Logout</span>
+                </a>
+              </li>
+            </ul>
             </li>
             <li>
               <router-link to="/">
