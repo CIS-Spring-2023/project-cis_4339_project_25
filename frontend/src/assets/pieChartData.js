@@ -1,4 +1,4 @@
-export const PieChartData = { //temporary chart data
+export const data= { //temporary chart data
     type: "pie",
     labels: [
       '77028',
@@ -6,7 +6,7 @@ export const PieChartData = { //temporary chart data
       '77056'
     ],
     datasets: [{
-      label: 'Customers by zip code',
+      label: 'Customers by Zip Code',
       data: [300, 50, 100],
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -16,5 +16,10 @@ export const PieChartData = { //temporary chart data
       hoverOffset: 4
     }]
   };
+
+  const PieChartData = { //configures the Pie Chart, https://www.chartjs.org/docs/latest/charts/doughnut.html#pie
+    type:'pie',
+    data: data,
+}
 
 export default PieChartData;

@@ -16,7 +16,7 @@
         }
     },
     mounted(){ //mounts chart on canvas
-        const ctx = document.getElementById('PieChart')
+        const ctx = document.getElementById('PieChart') //mounts chart into the canvas
         new Chart (ctx, this.PieChartData)
     }
   }
