@@ -83,8 +83,9 @@ const eventDataSchema = new Schema(
   {
     _id: { type: String, default: uuid.v1 },
     org: {
-      type: String,
-      required: true
+      type: [{ type: String, ref: 'org' }],
+      required: true,
+      validate: [(org) => org.length > 0, 'needs at least one org']
     },
     name: {
       type: String,
@@ -143,15 +144,44 @@ const serviceDataSchema = new Schema(
       required: true
     },
     org: {
-      type: String,
-      required: true
+      type: [{ type: String, ref: 'org' }],
+      required: true,
+      //validate: [(org) => org.length > 0, 'needs at least one org'], debating each service may be org dependent
+      // and not all orgs may share it
     }
   },
   {
-    collection: 'services'
+    collection: 'service'
   }
 )
 
+
+const userDataSchema = new Schema(
+  {
+    _id: {
+      type: String,
+      default: uuid.v1,
+      required: true
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    password:{
+      type:String,
+      required:true
+    },
+    org: {
+      type: [{ type: String, ref: 'org' }],
+      required: true,
+      //validate: [(org) => org.length > 0, 'needs at least one org'], debating each service may be org dependent
+      // and not all orgs may share it
+    }
+  },
+  {
+    collection: 'user'
+  }
+)
 // create models from mongoose schemas
 const clients = mongoose.model('client', clientDataSchema)
 const orgs = mongoose.model('org', orgDataSchema)
