@@ -132,6 +132,7 @@ const eventDataSchema = new Schema(
   }
 )
 
+//collection for services
 const serviceDataSchema = new Schema(
   {
     _id: {
@@ -155,7 +156,7 @@ const serviceDataSchema = new Schema(
   }
 )
 
-
+//collection for users
 const userDataSchema = new Schema(
   {
     _id: {
@@ -174,8 +175,7 @@ const userDataSchema = new Schema(
     org: {
       type: [{ type: String, ref: 'org' }],
       required: true,
-      //validate: [(org) => org.length > 0, 'needs at least one org'], debating each service may be org dependent
-      // and not all orgs may share it
+      //validate: [(org) => org.length > 0, 'needs at least one org'], each orgs may have different users
     }
   },
   {
@@ -187,6 +187,7 @@ const clients = mongoose.model('client', clientDataSchema)
 const orgs = mongoose.model('org', orgDataSchema)
 const events = mongoose.model('event', eventDataSchema)
 const services = mongoose.model('service',serviceDataSchema)
+const users = mongoose.model('user',userDataSchema)
 
 // package the models in an object to export
-module.exports = { clients, orgs, events, services }
+module.exports = { clients, orgs, events, services, users }
