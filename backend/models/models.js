@@ -144,11 +144,15 @@ const serviceDataSchema = new Schema(
       type: String,
       required: true
     },
+    status:{
+      type: String, //validate in front end to take Active or Inactive only
+      required:true
+    },
     org: {
       type: [{ type: String, ref: 'org' }],
       required: true,
-      //validate: [(org) => org.length > 0, 'needs at least one org'], debating each service may be org dependent
-      // and not all orgs may share it
+      //validate: [(org) => org.length > 0, 'needs at least one org']//was going to validate, but each org may have it active
+      //or inactive at different times
     }
   },
   {
@@ -175,7 +179,7 @@ const userDataSchema = new Schema(
     org: {
       type: [{ type: String, ref: 'org' }],
       required: true,
-      //validate: [(org) => org.length > 0, 'needs at least one org'], each orgs may have different users
+      //validate: [(org) => org.length > 0, 'needs at least one org'], each orgs may have different users for same person
     }
   },
   {
