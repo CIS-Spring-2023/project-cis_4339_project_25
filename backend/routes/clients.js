@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 // GET single client by ID
 router.get('/id/:id', (req, res, next) => {
   // use findOne instead of find to not return array
-  clients.findOne({ _id: req.params.id, orgs: org }, (error, data) => {
+  clients.findOne({ _id: req.params.id, org: org }, (error, data) => {
     if (error) {
       return next(error)
     } else if (!data) {
