@@ -7,7 +7,7 @@ export default {
   name: 'App',
   data() {
     return {
-      orgName: 'Dataplatform'
+      orgName: 'Dataplatform'//will need to change
     }
   },
   created() {
@@ -69,8 +69,8 @@ export default {
                 Dashboard
               </router-link>
             </li>
-            <li>
-              <router-link v-if="user.isLoggedIn" to="/intakeform">
+            <li v-if="user.isLoggedIn">
+              <router-link  to="/intakeform">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -79,8 +79,8 @@ export default {
                 Client Intake Form
               </router-link>
             </li>
-            <li>
-              <router-link v-if="user.isLoggedIn" to="/service">
+            <li v-if="user.isLoggedIn">
+              <router-link  to="/service">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -89,8 +89,8 @@ export default {
                 Add Service
               </router-link>
             </li>
-            <li>
-              <router-link v-if="user.isLoggedIn" to="/eventform">
+            <li v-if="user.isLoggedIn">
+              <router-link  to="/eventform">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -100,7 +100,7 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link v-if="user.isLoggedIn" to="/findclient">
+              <router-link to="/findclient">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -110,7 +110,7 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link v-if="user.isLoggedIn" to="/findevents">
+              <router-link  to="/findevents">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
@@ -120,7 +120,7 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link v-if="user.isLoggedIn" to="/findservices">
+              <router-link  to="/findservices">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
