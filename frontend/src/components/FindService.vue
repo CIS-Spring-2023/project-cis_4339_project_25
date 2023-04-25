@@ -37,7 +37,7 @@ export default {
         this.services = res.data
       })
     },
-    // abstracted method to get events
+    // abstracted method to get services
     getServices() {
       axios.get(`${apiURL}/services`).then((res) => {
         this.services = res.data
@@ -53,7 +53,7 @@ export default {
       this.getServices()
     },
     editService(serviceID) {
-      this.$router.push({ name: 'serviceDetails', params: { id: eventID } })
+      this.$router.push({ name: 'serviceDetails', params: { id: serviceID } })
     }
   }
 }
@@ -150,7 +150,7 @@ export default {
           </thead>
           <tbody class="divide-y divide-gray-300">
             <tr
-              @click="editEvent(service._id)"
+              @click="editService(service._id)"
               v-for="service in services"
               :key="service._id"
             >
