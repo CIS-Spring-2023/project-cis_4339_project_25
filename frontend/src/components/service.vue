@@ -1,28 +1,118 @@
 <script>
-export default{ //export service and status to be used for backend
-    name:'service',
-    status:'status'
+import useVuelidate from '@vuelidate/core'
+import { required, email, alpha, numeric } from '@vuelidate/validators'
+import axios from 'axios'
+const apiURL = import.meta.env.VITE_ROOT_API
+
+export default {
+  setup() {
+    return { v$: useVuelidate({ $autoDirty: true }) }
+  },
+  data() {
+    return {
+      org: '',
+      service: {
+        name: '',
+        status:''
+      }
+    }
+  },
+  created() {
+    axios.get(`${apiURL}/org`).then((res) => {
+      this.org = res.data._id
+    })
+  },
+  mounted() {
+    window.scrollTo(0, 0)
+  },
+  methods: {
+    // if valid:
+    //  if service with name exists in db:
+    //      do nothing
+    //    else create service document
+    registerService() {
+      this.v$.$validate().then((valid) => {
+        if (valid) {
+          axios
+            .get(`${apiURL}/services/name/${this.service.name}`) //backend finds one documents
+            .then((res) => {
+                if(res.data){ //if the data includes a name options then it found one that exists
+                    alert('Service already exists')
+                    console.log(res.data)
+                }
+                else{
+                    axios
+                  .post(`${apiURL}/services`, this.service)
+                  .then(() => {
+                    alert('Services added')
+                    this.$router.push({ name: 'findservices' })
+                  })
+                  .catch((error) => {
+                    console.log(error)
+                  })
+                }
+            })
+        }
+      })
+    }
+  },
+  // sets validations for the various data properties
+  validations() {
+    return {
+      service: {
+        name: { required, alpha },
+        status: { required, alpha }
+      }
+    }
+  }
 }
 </script>
 
 <template>
-<div class="row justify-content-center">
-<div class="col-md-4">
-    <div class="text-center"> <!-- Add Service form-->
-            <h3 class="font-bold col-xs-4 text-red-700 tracking-widest text-center mt-10">Add Service</h3>
-                <div class="form-group">
-                    <label>Service Name</label>
-                    <input type="text" class="form-control col-xs-2" v-model="service" placeholder="service" required>
-                </div>
-                <h2></h2>
-                <div class="form-group">
-                    <label>Service Status</label>
-                    <input type="text" class="form-control col-xs-2" v-model="status" placeholder="status" required>
-                </div>
-                <div class="text-center">
-                    <button type="button" class="btn btn-danger mt-3">Add service</button>
-                </div>
+  <main>
+    <h1
+      class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"
+    >
+      Service Intake Form
+    </h1>
+    <div class="px-10 py-20">
+      <!-- @submit.prevent stops the submit event from reloading the page-->
+      <form @submit.prevent="registerService">
+        <!-- grid container -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+          <!-- form field -->
+          <div class="flex flex-col">
+            <label class="block">
+              <span class="text-gray-700">Service Name</span>
+              <span style="color: #ff0000">*</span>
+              <input
+                type="text"
+                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                v-model="service.name"
+              />
+            </label>
+          </div>
+
+          <!-- form field -->
+          <div class="flex flex-col">
+            <label class="block">
+              <span class="text-gray-700">Service Status</span>
+              <input
+                type="text"
+                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder
+                v-model="service.status"
+              />
+            </label>
+          </div>
+          <!-- submit button -->
+          <div class="flex justify-between mt-10 mr-20">
+            <button class="bg-red-700 text-white rounded" type="submit">
+              Add Service
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-</div>
-</div>
+  </main>
 </template>
