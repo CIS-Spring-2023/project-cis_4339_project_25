@@ -1,5 +1,4 @@
 <script>
-import { DateTime } from 'luxon'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
 
@@ -17,17 +16,8 @@ export default {
     this.getServices()
   },
   methods: {
-    // better formattedDate
-    formattedDate(datetimeDB) {
-      const dt = DateTime.fromISO(datetimeDB, {
-        zone: 'utc'
-      })
-      return dt
-        .setZone(DateTime.now().zoneName, { keepLocalTime: true })
-        .toLocaleString()
-    },
     handleSubmitForm() {
-      let endpoint = ''
+      let endpoint = '' //handles whether searching by name or status and show respective results
       if (this.searchBy === 'Service Name') {
         endpoint = `services/search/?name=${this.name}&searchBy=name`
       } else if (this.searchBy === 'Service Status') {
@@ -38,7 +28,7 @@ export default {
       })
     },
     // abstracted method to get services
-    getServices() {
+    getServices() { //gets all services at the start of loading the page
       axios.get(`${apiURL}/services`).then((res) => {
         this.services = res.data
       })
@@ -52,8 +42,8 @@ export default {
 
       this.getServices()
     },
-    editService(serviceID) {
-      this.$router.push({ name: 'serviceDetails', params: { id: serviceID } })
+    editService(serviceID) { //on-click event when user clicks on service to edit it
+      this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
     }
   }
 }
