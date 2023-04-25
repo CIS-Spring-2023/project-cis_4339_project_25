@@ -164,7 +164,7 @@ const serviceDataSchema = new Schema(
 //collection for users
 const userDataSchema = new Schema(
   {
-    _id: {
+    _id: { //decided to add it just in case we needed it down the line
       type: String,
       default: uuid.v1,
       required: true
