@@ -3,6 +3,7 @@ import useVuelidate from '@vuelidate/core'
 import { required, email, alpha, numeric } from '@vuelidate/validators'
 import VueMultiselect from 'vue-multiselect'
 import axios from 'axios'
+import { useLoggedInUserStore } from "@/assets/loggedInUser" //user needs to sign in
 import { DateTime } from 'luxon'
 const apiURL = import.meta.env.VITE_ROOT_API
 
@@ -10,7 +11,8 @@ export default {
   props: ['id'],
   components: { VueMultiselect },
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const user = useLoggedInUserStore(); //added to not show update or delete unless user signs in
+    return { user,v$: useVuelidate({ $autoDirty: true }) }
   },
   data() {
     return {
@@ -360,7 +362,7 @@ export default {
               Update Client
             </button>
           </div>
-          <div class="flex justify-between mt-10 mr-20">
+          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
             <button
               @click="deregisterClient"
               type="submit"
@@ -369,7 +371,7 @@ export default {
               Delete Client
             </button>
           </div>
-          <div class="flex justify-between mt-10 mr-20">
+          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"

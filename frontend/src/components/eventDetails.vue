@@ -2,13 +2,15 @@
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
+import { useLoggedInUserStore } from "@/assets/loggedInUser"
 import { DateTime } from 'luxon'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   props: ['id'],
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) }
+    const user = useLoggedInUserStore(); //added to not show update or delete unless user signs in
+    return { user,v$: useVuelidate({ $autoDirty: true }) }
   },
   data() {
     return {
@@ -284,7 +286,7 @@ export default {
         <div
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
         >
-          <div class="flex justify-between mt-10 mr-20">
+          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
             <button
               @click="handleEventUpdate"
               type="submit"
@@ -293,8 +295,8 @@ export default {
               Update Event
             </button>
           </div>
-          <div class="flex justify-between mt-10 mr-20">
-            <button
+          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
+            <button 
               @click="eventDelete"
               type="submit"
               class="bg-red-700 text-white rounded"

@@ -31,7 +31,7 @@ router.post('/login', function(req, res) {
             } 
             else {
             // password matched. proceed forward
-            res.send('Logging in')
+            res.send({isAllowed:true, name:req.body.username})
             }
         }
         else{ //result if findOne does not find a matching username, thus returns null
