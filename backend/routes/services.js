@@ -33,6 +33,23 @@ router.get('/id/:id', (req, res, next) => {
       }
     })
   })
+
+// GET single service by name
+router.get('/name/:name', (req, res, next) => {
+    // use findOne instead of find to not return array
+    services.findOne(
+        { name: 
+            {$regex: req.params.name,
+             $options: 'i'} //checks for case insensitive
+        , org: org  },
+         (error, data) => {
+      if (error) {
+        return next(error)
+      } else { //if there is a matching service, returns it
+        res.json(data)
+      }
+    })
+  })
   
   // GET services based on search query
   // Ex: '...?name=Daycare&status=name'

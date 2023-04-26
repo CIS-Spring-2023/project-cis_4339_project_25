@@ -1,46 +1,36 @@
 <script>
-import { DateTime } from 'luxon'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   data() {
     return {
-      events: [],
+      services: [],
       // Parameter for search to occur
       searchBy: '',
       name: '',
-      eventDate: ''
+      status:''
     }
   },
   mounted() {
-    this.getEvents()
+    this.getServices()
   },
   methods: {
-    // better formattedDate
-    formattedDate(datetimeDB) {
-      const dt = DateTime.fromISO(datetimeDB, {
-        zone: 'utc'
-      })
-      return dt
-        .setZone(DateTime.now().zoneName, { keepLocalTime: true })
-        .toLocaleString()
-    },
     handleSubmitForm() {
-      let endpoint = ''
-      if (this.searchBy === 'Event Name') {
-        endpoint = `events/search/?name=${this.name}&searchBy=name`
-      } else if (this.searchBy === 'Event Date') {
-        endpoint = `events/search/?eventDate=${this.eventDate}&searchBy=date`
+      let endpoint = '' //handles whether searching by name or status and show respective results
+      if (this.searchBy === 'Service Name') {
+        endpoint = `services/search/?name=${this.name}&searchBy=name`
+      } else if (this.searchBy === 'Service Status') {
+        endpoint = `services/search/?status=${this.status}&searchBy=status`
       }
       axios.get(`${apiURL}/${endpoint}`).then((res) => {
-        this.events = res.data
+        this.services = res.data
       })
     },
-    // abstracted method to get events
-    getEvents() {
-      axios.get(`${apiURL}/events`).then((res) => {
-        this.events = res.data
+    // abstracted method to get services
+    getServices() { //gets all services at the start of loading the page
+      axios.get(`${apiURL}/services`).then((res) => {
+        this.services = res.data
       })
       window.scrollTo(0, 0)
     },
@@ -48,12 +38,12 @@ export default {
       // Resets all the variables
       this.searchBy = ''
       this.name = ''
-      this.eventDate = ''
+      this.status = ''
 
-      this.getEvents()
+      this.getServices()
     },
-    editEvent(eventID) {
-      this.$router.push({ name: 'eventdetails', params: { id: eventID } })
+    editService(serviceID) { //on-click event when user clicks on service to edit it
+      this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
     }
   }
 }
@@ -79,11 +69,11 @@ export default {
             class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             v-model="searchBy"
           >
-            <option value="Event Name">Service Name</option>
-            <option value="Event Date">Service Status</option>
+            <option value="Service Name">Service Name</option>
+            <option value="Service Status">Service Status</option>
           </select>
         </div>
-        <div class="flex flex-col" v-if="searchBy === 'Event Name'">
+        <div class="flex flex-col" v-if="searchBy === 'Service Name'">
           <label class="block">
             <input
               type="text"
@@ -94,14 +84,17 @@ export default {
             />
           </label>
         </div>
-        <!-- Displays event date search field -->
-        <div class="flex flex-col" v-if="searchBy === 'Event Date'">
+        <!-- Displays status search field -->
+        <div class="flex flex-col" v-if="searchBy === 'Service Status'">
+          <label class = "block">
           <input
+          type="text"
             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            type="date"
-            v-model="eventDate"
+            v-model="status"
             v-on:keyup.enter="handleSubmitForm"
+            placeholder="Enter service status"
           />
+          </label>
         </div>
       </div>
       <div
@@ -143,18 +136,16 @@ export default {
             <tr>
               <th class="p-4 text-left">Service Name</th>
               <th class="p-4 text-left">Service Status</th>
-              <th class="p-4 text-left">Event Address</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
             <tr
-              @click="editEvent(event._id)"
-              v-for="event in events"
-              :key="event._id"
+              @click="editService(service._id)"
+              v-for="service in services"
+              :key="service._id"
             >
-              <td class="p-2 text-left">{{ event.name }}</td>
-              <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
-              <td class="p-2 text-left">{{ event.address.line1 }}</td>
+              <td class="p-2 text-left">{{ service.name }}</td>
+              <td class="p-2 text-left">{{ service.status}}</td>
             </tr>
           </tbody>
         </table>
