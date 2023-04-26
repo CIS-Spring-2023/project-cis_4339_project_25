@@ -10,7 +10,6 @@ export default {
   },
   data() {
     return {
-      queryData:[],
       // removed unnecessary extra array to track services
       event: {
         name: '',
@@ -44,13 +43,6 @@ export default {
           })
       }
     }
-  },
-  created(){ //gets Active Services
-    axios.get(`${apiURL}/services/search/?searchBy=status&status=Active`)
-    .then((res)=>{
-        this.queryData = res.data
-        console.log(res.data)
-    })
   },
   // sets validations for the various data properties
   validations() {
@@ -138,14 +130,64 @@ export default {
             </label>
           </div>
 
-          <!--Form field, dynamic, shows active services for org, https://stackoverflow.com/questions/43797010/dynamic-value-checkbox-vuejs-2-->
+          <div></div>
+          <div></div>
+          <div></div>
           <!-- form field -->
           <div class="flex flex-col grid-cols-3">
-            <ul v-for="query in queryData"> <!--Loop to iterate through active services and show them-->
-              <input
-              type="checkbox" :id=query.name :value=query.name v-model="event.services" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"/>
-              {{ query.name }} <!--checkbox with name to select to add to services for event-->
-            </ul>
+            <label>Services Offered at Event</label>
+            <div>
+              <label for="familySupport" class="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  id="familySupport"
+                  value="Family Support"
+                  v-model="event.services"
+                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                  notchecked
+                />
+                <span class="ml-2">Family Support</span>
+              </label>
+            </div>
+            <div>
+              <label for="adultEducation" class="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  id="adultEducation"
+                  value="Adult Education"
+                  v-model="event.services"
+                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                  notchecked
+                />
+                <span class="ml-2">Adult Education</span>
+              </label>
+            </div>
+            <div>
+              <label for="youthServices" class="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  id="youthServices"
+                  value="Youth Services Program"
+                  v-model="event.services"
+                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                  notchecked
+                />
+                <span class="ml-2">Youth Services Program</span>
+              </label>
+            </div>
+            <div>
+              <label for="childhoodEducation" class="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  id="childhoodEducation"
+                  value="Early Childhood Education"
+                  v-model="event.services"
+                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                  notchecked
+                />
+                <span class="ml-2">Early Childhood Education</span>
+              </label>
+            </div>
           </div>
         </div>
 
