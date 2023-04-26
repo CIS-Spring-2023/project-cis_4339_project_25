@@ -14,6 +14,7 @@ export default {
   },
   data() {
     return {
+      queryData:[],
       clientAttendees: [],
       event: {
         name: '',
@@ -68,6 +69,18 @@ export default {
       })
     }
   },
+  created(){
+    axios.get(`${apiURL}/events/id/${this.$route.params.id}`).then((res) => {
+      // simplified setting client
+      this.event = res.data
+    })
+    //gets Active Services
+    axios.get(`${apiURL}/services/search/?searchBy=status&status=Active`)
+    .then((res)=>{
+        this.queryData = res.data
+        console.log(res.data)
+    })
+  },
   // sets validations for the various data properties
   validations() {
     return {
@@ -119,7 +132,7 @@ export default {
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
-              <span class="text-gray-700">Date</span>
+              <span class="text-gray-700">Date (Reselect)</span>
               <span style="color: #ff0000">*</span>
               <input
                 type="date"
@@ -153,51 +166,19 @@ export default {
             </label>
           </div>
 
-          <div></div>
-          <div></div>
-          <div></div>
+          <!--Form field, dynamic, shows active services for org-->
           <!-- form field -->
           <div class="flex flex-col grid-cols-3">
+            <span class="text-gray-700">Reselect Event Services:</span>
+            <ul v-for="query in queryData"> <!--Loop to iterate through active services and show them-->
+              <input
+              type="checkbox" :id=query.name :value=query.name v-model="event.services" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"/>
+              {{ query.name }} <!--checkbox with name to select to add to services for event-->
+            </ul>
+          </div>
+          <!-- form field -->
+          <!--<div class="flex flex-col grid-cols-3">
             <label>Services Offered at Event</label>
-            <div>
-              <label for="familySupport" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="familySupport"
-                  value="Family Support"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Family Support</span>
-              </label>
-            </div>
-            <div>
-              <label for="adultEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="adultEducation"
-                  value="Adult Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Adult Education</span>
-              </label>
-            </div>
-            <div>
-              <label for="youthServices" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="youthServices"
-                  value="Youth Services Program"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Youth Services Program</span>
-              </label>
-            </div>
             <div>
               <label for="childhoodEducation" class="inline-flex items-center">
                 <input
@@ -211,7 +192,7 @@ export default {
                 <span class="ml-2">Early Childhood Education</span>
               </label>
             </div>
-          </div>
+          </div>-->
         </div>
 
         <!-- grid container -->
