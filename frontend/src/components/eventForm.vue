@@ -130,9 +130,8 @@ export default {
             </label>
           </div>
 
-          <div></div>
-          <div></div>
-          <div></div>
+          <!--Form field, dynamic, shows active services for org-->
+
           <!-- form field -->
           <div class="flex flex-col grid-cols-3">
             <label>Services Offered at Event</label>
