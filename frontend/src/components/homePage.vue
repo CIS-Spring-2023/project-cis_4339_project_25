@@ -9,6 +9,7 @@ export default {
     AttendanceChart,
     PieChart
   },
+//adding data 
   data() {
     return {
       recentEvents: [],
@@ -59,7 +60,7 @@ export default {
       }
       this.loading = false
     },
-// get client by zip code data
+// get clients by zipcode data
     async PieChart() {
       try {
         const response = await axios.get(`${apiURL}/clients/zipCode`)

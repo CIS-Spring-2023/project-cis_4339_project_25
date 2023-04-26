@@ -1,7 +1,6 @@
 <script>
 import {Chart, registerables} from 'chart.js'
 Chart.register(...registerables)
-  
 export default {
     props: {
         label: {
@@ -11,6 +10,7 @@ export default {
             type: Array
         }
     },
+    //creating pie chart components
     mounted() {
         const backgroundColor = this.chartData.map(() => this.getColor())
         new Chart(this.$refs.pieChart, {
@@ -43,9 +43,9 @@ export default {
     }}  
 </script>
 
-<template>
+<template> 
     <div 
-    class="shadow-lg rounded-full h-96">
+    class="shadow-lg rounded-full h-96"> 
     <canvas class="p-10" ref="pieChart"></canvas>
     </div>
 </template>
