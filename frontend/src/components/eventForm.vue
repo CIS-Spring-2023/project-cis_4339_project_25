@@ -138,7 +138,7 @@ export default {
             </label>
           </div>
 
-          <!--Form field, dynamic, shows active services for org-->
+          <!--Form field, dynamic, shows active services for org, https://stackoverflow.com/questions/43797010/dynamic-value-checkbox-vuejs-2-->
           <!-- form field -->
           <div class="flex flex-col grid-cols-3">
             <ul v-for="query in queryData"> <!--Loop to iterate through active services and show them-->
