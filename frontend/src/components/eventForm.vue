@@ -143,7 +143,7 @@ export default {
           <div class="flex flex-col grid-cols-3">
             <ul v-for="query in queryData">
               <input
-              type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"/>
+              type="checkbox" :id=query.name :value=query.name v-model="event.services" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"/>
               {{ query.name }}
             </ul>
             <!--<div>
