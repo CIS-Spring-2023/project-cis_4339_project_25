@@ -1,6 +1,6 @@
 <script>
 import useVuelidate from '@vuelidate/core'
-import { required, email, alpha, numeric } from '@vuelidate/validators'
+import { required} from '@vuelidate/validators'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
 
@@ -60,8 +60,8 @@ export default {
   validations() {
     return {
       service: {
-        name: { required, alpha },
-        status: { required, alpha }
+        name: { required},
+        status: { required}
       }
     }
   }
@@ -90,6 +90,15 @@ export default {
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 v-model="service.name"
               />
+              <span class="text-black" v-if="v$.service.name.$error">
+                <p
+                  class="text-red-700"
+                  v-for="error of v$.service.name.$errors"
+                  :key="error.$uid"
+                >
+                  {{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
 
@@ -103,6 +112,15 @@ export default {
                 placeholder
                 v-model="service.status"
               />
+              <span class="text-black" v-if="v$.service.status.$error">
+                <p
+                  class="text-red-700"
+                  v-for="error of v$.service.status.$errors"
+                  :key="error.$uid"
+                >
+                  {{ error.$message }}!
+                </p>
+              </span>
             </label>
           </div>
           <!-- submit button -->
