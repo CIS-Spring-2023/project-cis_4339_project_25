@@ -141,24 +141,11 @@ export default {
           <!--Form field, dynamic, shows active services for org-->
           <!-- form field -->
           <div class="flex flex-col grid-cols-3">
-            <ul v-for="query in queryData">
+            <ul v-for="query in queryData"> <!--Loop to iterate through active services and show them-->
               <input
               type="checkbox" :id=query.name :value=query.name v-model="event.services" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"/>
-              {{ query.name }}
+              {{ query.name }} <!--checkbox with name to select to add to services for event-->
             </ul>
-            <!--<div>
-              <label for="childhoodEducation" class="inline-flex items-center">
-                <input
-                  type="checkbox"
-                  id="childhoodEducation"
-                  value="Early Childhood Education"
-                  v-model="event.services"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-                  notchecked
-                />
-                <span class="ml-2">Early Childhood Education</span>
-              </label>
-            </div>-->
           </div>
         </div>
 
