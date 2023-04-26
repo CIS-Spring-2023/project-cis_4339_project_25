@@ -2,7 +2,7 @@
 import { DateTime } from 'luxon'
 import axios from 'axios'
 import AttendanceChart from './barChart.vue'
-import PieChart from '@/components/pieChart.vue'
+import PieChart from './pieChart.vue'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
@@ -16,12 +16,15 @@ export default {
       labels: [],
       chartData: [],
       loading: false,
-      error: null
+      error: null,
+      pieloading: false,
+      pielabels: [],
+      piedata: []
     }
   },
   mounted() {
     this.getAttendanceData(),
-    PieChart
+    this.PieChart()
   },
   methods: {
     async getAttendanceData() {
@@ -56,6 +59,19 @@ export default {
         }
       }
       this.loading = false
+    },
+// get client by zip code data
+    async PieChart() {
+      try {
+        const response = await axios.get(`${apiURL}/clients/zipCode`)
+        this.pieloading = true
+        this.pielabels = response.data.map((zip) =>zip._id)
+        this.piedata= response.data.map((num) => num.count)
+        console.log(this.pielabels)
+      } 
+      catch(err){
+        console.log(err)
+      }
     },
     formattedDate(datetimeDB) {
       const dt = DateTime.fromISO(datetimeDB, {
@@ -137,7 +153,11 @@ export default {
           </div>
 
           <div>
-            <PieChart></PieChart> <!-- Place Pie Chart into dashboard-->
+            <PieChart
+            v-if="pieloading"
+            :label="pielabels"
+            :chart-data="piedata">
+          </PieChart>
           </div>
         </div>
       </div>
