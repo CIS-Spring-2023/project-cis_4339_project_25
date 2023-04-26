@@ -80,6 +80,31 @@ router.get('/lookup/:phoneNumber', (req, res, next) => {
   )
 })
 
+//Get amount of clients per zipCode
+router.get('/zipCode', (req, res, next) => { 
+  // use findOne instead of find to not return array
+  clients.aggregate([
+    {
+      $match:{
+        "address.zip": {$exists:true, $ne:""} //gets all clients that have a zip code that is not blank
+      }
+    },
+    {
+      $group:{ //groups based on zip code as id and counts each new client by 1
+        _id: "$address.zip",
+        count:{$sum:1}
+      }
+    }
+  ],(error,data) =>{
+    if (error) {
+      return next(error)
+    }
+    else{
+      return res.json(data)
+    }
+  })
+})
+
 // POST new client
 router.post('/', (req, res, next) => {
   const newClient = req.body
