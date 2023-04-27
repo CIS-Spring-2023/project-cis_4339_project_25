@@ -30,6 +30,10 @@ export default {
     //  if service with name exists in db:
     //      do nothing
     //    else create service document
+    onChange(e){
+      this.service.status = e
+      console.log(e)
+    },
     registerService() {
       this.v$.$validate().then((valid) => {
         if (valid) {
@@ -104,10 +108,21 @@ export default {
 
           <!-- form field -->
           <div class="flex flex-col">
-            <label class="block">
+            <div> <!--Dropdown menu for status-->
+              <label for="status-selection">Select Status</label> <!--https://www.nightprogrammer.com/vue-3/get-value-of-selected-option-from-select-dropdown-in-vue-3-example/-->
+            <select
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              name="status-selection"
+              v-model="service.status"
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            </div>
+            <!--<label class="block">
               <span class="text-gray-700">Service Status</span>
               <input
-                type="text"
+                type="dropdown"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder
                 v-model="service.status"
@@ -121,7 +136,7 @@ export default {
                   {{ error.$message }}!
                 </p>
               </span>
-            </label>
+            </label> -->
           </div>
           <!-- submit button -->
           <div class="flex justify-between mt-10 mr-20">

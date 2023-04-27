@@ -46,7 +46,7 @@ export default {
   validations() {
     return {
       service: {
-        name: { required, alpha },
+        name: { required,},
         status: { required, alpha }
       }
     }
@@ -93,13 +93,17 @@ export default {
           <!-- form field -->
           <div class="flex flex-col">
             <label class="block">
-              <span class="text-gray-700">Status</span>
-              <span style="color: #ff0000">*</span>
-              <input
-                type="text"
+              <div> <!--Dropdown menu for status-->
+              <label for="status-selection">Status</label> <!--https://www.nightprogrammer.com/vue-3/get-value-of-selected-option-from-select-dropdown-in-vue-3-example/-->
+                <select
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                v-model="service.status"
-              />
+                  name="status-selection"
+                  v-model="service.status"
+                >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+                </select>
+            </div>
               <span class="text-black" v-if="v$.service.status.$error">
                 <p
                   class="text-red-700"
@@ -147,33 +151,6 @@ export default {
         </div>
 
         <hr class="mt-10 mb-10" />
-
-        <!-- grid container -->
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
-        >
-          <div class="flex flex-col col-span-2">
-            <table class="min-w-full shadow-md rounded">
-              <thead class="bg-gray-50 text-xl">
-              <tbody class="divide-y divide-gray-300">
-                <tr
-                  @click="editClient(service._id)"
-                  v-for="service in clientAttendees"
-                  :key="service._id"
-                >
-                  <td class="p-2 text-left">
-                    {{ client.firstName + ' ' + service.lastName }}
-                  </td>
-                  <td class="p-2 text-left">{{ client.address.city }}</td>
-                  <td class="p-2 text-left">
-                    {{ client.phoneNumber.primary }}
-                  </td>
-                </tr>
-              </tbody>
-              </thead>
-            </table>
-          </div>
-        </div>
       </form>
     </div>
   </main>
