@@ -73,7 +73,7 @@ export default {
             <option value="Service Status">Service Status</option>
           </select>
         </div>
-        <div class="flex flex-col" v-if="searchBy === 'Service Name'">
+        <div class="flex flex-col" v-if="searchBy === 'Service Name'"> <!--if searching by name-->
           <label class="block">
             <input
               type="text"
@@ -85,7 +85,7 @@ export default {
           </label>
         </div>
         <!-- Displays status search field -->
-        <div class="flex flex-col" v-if="searchBy === 'Service Status'">
+        <div class="flex flex-col" v-if="searchBy === 'Service Status'"> <!--if searching by status-->
           <label class = "block">
           <input
           type="text"
@@ -122,7 +122,7 @@ export default {
     </div>
 
     <hr class="mt-10 mb-10" />
-    <!-- Display Found Data -->
+    <!-- Display Found Data and allow to click to edit it-->
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
     >
