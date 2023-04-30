@@ -351,9 +351,8 @@ export default {
 
         <!-- grid container -->
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
-        >
-          <div class="flex justify-between mt-10 mr-20">
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10" >
+          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
             <button
               @click="updateClient"
               type="submit"
@@ -371,7 +370,7 @@ export default {
               Delete Client
             </button>
           </div>
-          <div class="flex justify-between mt-10 mr-20" v-if="user.isLoggedIn"> <!--Will not show up unless user signs in-->
+          <div class="flex justify-between mt-10 mr-20" >
             <button
               type="reset"
               class="border border-red-700 bg-white text-red-700 rounded"
