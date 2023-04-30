@@ -22,3 +22,6 @@ VITE_ROOT_API is the URL for the backend API, either on localhost or in the clou
 ### Log in Credentials
 username: admin
 password: password
+
+### CIS4339 Project Spring 2023 Team 25 Dataplatform API Documentation
+https://documenter.getpostman.com/view/17572059/2s93eSaFyy
