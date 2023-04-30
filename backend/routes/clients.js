@@ -86,7 +86,7 @@ router.get('/zipCode', (req, res, next) => {
   clients.aggregate([
     {
       $match:{
-        "address.zip": {$exists:true, $ne:""} //gets all clients that have a zip code that is not blank
+        "address.zip": {$exists:true} //gets all clients that have a zip code that is not blank
       }
     },
     {
